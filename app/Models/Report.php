@@ -11,7 +11,7 @@ class Report extends Model
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $table = 'activities';
+    protected $table = 'reports';
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +19,16 @@ class Report extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'project_id',
+        'description',
+        'status_id',
     ];
+
+    public function project() {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
+    }
 }
