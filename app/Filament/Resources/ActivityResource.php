@@ -28,17 +28,18 @@ class ActivityResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('project_id')
+                Forms\Components\Select::make('project_id')
+                    ->relationship('project', 'title')
                     ->required()
-                    ->numeric(),
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('due_date')
                     ->required(),
-                Forms\Components\TextInput::make('status_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('status_id')
+                    ->relationship('status', 'name')
+                    ->required(),
             ]);
     }
 
@@ -46,14 +47,18 @@ class ActivityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('project_id')
+                Tables\Columns\TextColumn::make('project.title')
+                    ->label('Project')
                     ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('description')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('due_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('status.name')
+                    ->label('Status')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

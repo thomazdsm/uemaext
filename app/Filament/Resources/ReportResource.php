@@ -28,17 +28,16 @@ class ReportResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('project_id')
+                Forms\Components\Select::make('project_id')
+                    ->relationship('project', 'title')
                     ->required()
-                    ->numeric(),
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\DatePicker::make('due_date')
+                Forms\Components\Select::make('status_id')
+                    ->relationship('status', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('status_id')
-                    ->required()
-                    ->numeric(),
             ]);
     }
 
@@ -46,23 +45,16 @@ class ReportResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('project_id')
+                Tables\Columns\TextColumn::make('project.title')
+                    ->label('Project')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('due_date')
-                    ->date()
+                Tables\Columns\TextColumn::make('status.name')
+                    ->label('Status')
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('description')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
