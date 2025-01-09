@@ -24,6 +24,11 @@ class RoleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Funções';
+    }
+
     public static function form(Form $form): Form
     {
         return $form

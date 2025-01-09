@@ -36,6 +36,14 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
+                Forms\Components\Select::make('department_id')
+                    ->relationship('department', 'name')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('role_id')
+                    ->relationship('role', 'name')
+                    ->required()
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required(fn (string $operation): bool => $operation !== 'create')
@@ -57,8 +65,7 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('department.name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('type_id');
             $table->timestamps();

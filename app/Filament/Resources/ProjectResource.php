@@ -28,17 +28,25 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('project_id')
+                Forms\Components\TextInput::make('title')
                     ->required()
-                    ->numeric(),
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('department_id')
+                    ->relationship('department', 'name')
+                    ->required()
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\DatePicker::make('due_date')
+                Forms\Components\DatePicker::make('start_date')
                     ->required(),
-                Forms\Components\TextInput::make('status_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\DatePicker::make('end_date'),
+                Forms\Components\Select::make('status_id')
+                    ->relationship('status', 'name')
+                    ->required(),
+                Forms\Components\Select::make('type_id')
+                    ->relationship('type', 'name')
+                    ->required(),
             ]);
     }
 
@@ -46,14 +54,15 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('project_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('due_date')
+                Tables\Columns\TextColumn::make('start_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('status.name')
+                    ->label('Status')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

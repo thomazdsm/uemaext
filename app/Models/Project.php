@@ -11,7 +11,7 @@ class Project extends Model
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $table = 'activities';
+    protected $table = 'projects';
 
     /**
      * The attributes that are mass assignable.
@@ -20,12 +20,17 @@ class Project extends Model
      */
     protected $fillable = [
         'title',
+        'department_id',
         'description',
         'start_date',
         'end_date',
         'status_id',
         'type_id'
     ];
+
+    public function department() {
+        return $this->belongsTo(Department::class);
+    }
 
     public function status() {
         return $this->belongsTo(Status::class);

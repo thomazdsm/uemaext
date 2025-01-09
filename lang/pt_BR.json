@@ -165,10 +165,13 @@
     "Created at": "Criado em",
     "Updated at": "Atualizado em",
     "Type": "Tipo",
-    "Role": "Perfil",
-    "Roles": "Perfis",
+    "Roles": "Funções",
     "Report": "Relatório",
     "Project": "Projeto",
     "Department": "Departamento",
-    "Activity": "Atividade"
+    "Activity": "Atividade",
+    "Start date": "Início do Projeto",
+    "End date": "Encerramento do Projeto",
+    "Title": "Título",
+    "Description": "Descrição"
 }
