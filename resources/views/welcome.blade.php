@@ -171,8 +171,8 @@
                         <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h2>Acompanhamento de Projetos de Pesquisa e Extensão</h2>
-                                    <p>A necessidade de acompanhar, documentar e avaliar múltiplos projetos simultaneamente demanda uma solução tecnológica robusta e integrada. <b>Nós temos a solução!</b></p>
+                                    <h2 style="color: white">Acompanhamento de Projetos de Pesquisa e Extensão</h2>
+                                    <p style="color: white">A necessidade de acompanhar, documentar e avaliar múltiplos projetos simultaneamente demanda uma solução tecnológica robusta e integrada. <b>Nós temos a solução!</b></p>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="white-button first-button scroll-to-section">

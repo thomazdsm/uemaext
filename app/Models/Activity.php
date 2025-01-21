@@ -19,6 +19,7 @@ class Activity extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'name',
         'project_id',
         'description',
         'due_date',

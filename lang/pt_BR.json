@@ -173,5 +173,7 @@
     "Start date": "Início do Projeto",
     "End date": "Encerramento do Projeto",
     "Title": "Título",
-    "Description": "Descrição"
+    "Description": "Descrição",
+    "Advisor": "Orientador",
+    "Assignments": "Vínculo"
 }

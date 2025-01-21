@@ -57,8 +57,8 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('start_date')
-                    ->date()
+                Tables\Columns\TextColumn::make('department.name')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status.name')
                     ->label('Status')

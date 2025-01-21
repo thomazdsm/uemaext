@@ -19,6 +19,7 @@ class Report extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'name',
         'project_id',
         'description',
         'status_id',
