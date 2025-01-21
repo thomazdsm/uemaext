@@ -28,6 +28,10 @@ class ActivityResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255)
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('project_id')
                     ->relationship('project', 'title')
                     ->required()

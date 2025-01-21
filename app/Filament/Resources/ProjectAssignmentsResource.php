@@ -4,9 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Enums\ProjectUserRole;
 use App\Enums\UserRole;
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Filament\Resources\ProjectAssignmentsResource\Pages;
+use App\Filament\Resources\ProjectAssignmentsResource\RelationManagers;
+use App\Models\ProjectAssignments;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,51 +15,35 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UserResource extends Resource
+class ProjectAssignmentsResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = ProjectAssignments::class;
 
     public static function getModelLabel(): string
     {
-        return __('User');
+        return __('Assignments');
     }
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255)
-                    ->unique(ignoreRecord: true),
-                Forms\Components\Select::make('department_id')
-                    ->relationship('department', 'name')
-                    ->required()
-                    ->columnSpanFull(),
+                Forms\Components\Select::make('project_id')
+                    ->relationship('project', 'title')
+                    ->required(),
+                Forms\Components\Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->required(),
                 Forms\Components\Select::make('role')
                     ->options(
-                        collect(UserRole::cases())
-                            ->mapWithKeys(fn(UserRole $role) => [$role->value => $role->getLabel()])
+                        collect(ProjectUserRole::cases())
+                            ->mapWithKeys(fn(ProjectUserRole $role) => [$role->value => $role->getLabel()])
                             ->toArray()
                     )
                     ->required()
-                    ->default(UserRole::SUBSCRIBER->value),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required(fn (string $operation): bool => $operation !== 'create')
-                    ->dehydrated(fn (?string $state) => filled($state))
-                    ->confirmed(),
-                Forms\Components\TextInput::make('password_confirmation')
-                    ->label('Password Confirmation')
-                    ->password()
-                    ->requiredWith('password')
-                    ->dehydrated(false),
+                    ->default(ProjectUserRole::MEMBER->value),
             ]);
     }
 
@@ -67,11 +51,9 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('department.name')
+                Tables\Columns\TextColumn::make('user.name')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('project.title')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('role')
                     ->label('Role')
@@ -114,9 +96,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListProjectAssignments::route('/'),
+            'create' => Pages\CreateProjectAssignments::route('/create'),
+            'edit' => Pages\EditProjectAssignments::route('/{record}/edit'),
         ];
     }
 }
